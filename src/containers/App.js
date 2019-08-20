@@ -4,6 +4,12 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component{
+	constructor(props) {
+		super(props);
+		console.log('[App.js] constructor');
+	}
+	// the below code will automatically call a constructor with a super(props)
+	// and initialize the below state into the constructor {Modern feature of React}
   state = {
     persons : [
       { id: 'asas1', name: "Pawan", age: 22, },
@@ -13,6 +19,20 @@ class App extends Component{
     otherState: 'Some other state',
     showPersons: false,
   }
+
+	static getDerivedStateFromProps(props, state) {
+		console.log('[App.js] getDerivedStateFromProps ', props, state);
+		return state;
+	}
+
+	componentDidMount() {
+		console.log('[App.js] componentDidMount');
+	}
+
+	// Not recommanded for use
+	// componentWillMount() {
+	// 	console.log('[App.js] componentWillMount');
+	// }
 
   nameChangedHandler = (event, id) => {
     const personIndex = this.state.persons.findIndex(p => {
@@ -40,6 +60,7 @@ class App extends Component{
   }
 
   render() {
+		console.log('[App.js] render');
     let persons = null;
     if (this.state.showPersons) {
       persons = <Persons
